@@ -1,0 +1,7 @@
+[shader]
+fs = "shader/chaos.fs"
+extend = "shader/chaos.so"
+
+[chaos]
+radius = 250.0
+angle = 0.8
