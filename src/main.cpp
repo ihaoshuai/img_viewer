@@ -3,7 +3,6 @@
 #include "raylib.h"
 #include "spdlog/spdlog.h"
 #include "toml.hpp"
-#include <cstddef>
 #include <spdlog/common.h>
 #include "dload.hpp"
 
