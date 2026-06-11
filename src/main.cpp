@@ -44,13 +44,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // InitUniformsFunc InitUniforms = (InitUniformsFunc)GET_FUNC(shaderLib, INIT_UNIFORM_FUNC_NAME);
-    // if(!InitUniforms)
-    // {
-    //     spdlog::error("fail to find function in dynamic lib: {}", INIT_UNIFORM_FUNC_NAME);
-    //     CLOSE_LIB(shaderLib);
-    //     return -1;
-    // }
 
     SetConfigFlags(FLAG_WINDOW_HIDDEN);
     InitWindow(100, 100, "Image Viewer");
@@ -65,11 +58,9 @@ int main(int argc, char *argv[])
     SetTextureFilter(texture, TEXTURE_FILTER_TRILINEAR);
     SetTargetFPS(60);
 
-    // Shader shader = LoadShader(NULL, fragmentShaderPath.c_str());
 
     HotShader hotShader{fragmentShaderPath.c_str()};
 
-    // InitUniforms(shader, CONFIG_PATH);
 
     while (!WindowShouldClose())
     {

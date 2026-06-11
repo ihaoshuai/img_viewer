@@ -19,8 +19,7 @@
 #endif
 
 #define UPDATE_UNIFORM_FUNC_NAME "UpdateShaderUniforms"
-// #define INIT_UNIFORM_FUNC_NAME "InitShaderUniforms"
 
 typedef void (*UpdateUniformsFunc)(Shader);
-// typedef bool (*InitUniformsFunc)(Shader, const char*);
+
 

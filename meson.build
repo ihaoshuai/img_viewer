@@ -18,3 +18,9 @@ executable(
     include_directories: incls,
     dependencies: deps
 )
+
+shared_library(
+    'chaos',
+    'shared_lib/chaos.cpp',
+    dependencies: raylib
+)
