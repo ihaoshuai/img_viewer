@@ -1,3 +1,4 @@
 source += files(
-  'main.cpp'
+  'main.cpp',
+  'hot_reload.cpp'
 )

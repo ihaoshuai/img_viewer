@@ -11,14 +11,12 @@ uniform vec4 colDiffuse;
 // Output fragment color
 out vec4 finalColor;
 
-
-
 uniform vec2 uTexSize;
-uniform float uRadius;
-uniform float uAngle;
 uniform vec2 uCenter;
 uniform float uTime;
 
+float radius = 250.0;
+float angle = 0.8;
 
 void main()
 {
@@ -34,10 +32,10 @@ void main()
 
     float dist = length(tc);
 
-    if (dist < uRadius)
+    if (dist < radius)
     {
-        float percent = (uRadius - dist)/uRadius;
-        float theta = percent*percent*uAngle*8.0;
+        float percent = (radius - dist)/radius;
+        float theta = percent*percent*angle*8.0;
         float s = sin(theta);
         float c = cos(theta);
 

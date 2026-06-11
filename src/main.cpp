@@ -1,4 +1,5 @@
 
+#include "hot_reload.hpp"
 #include "raylib.h"
 #include "spdlog/spdlog.h"
 #include "toml.hpp"
@@ -43,13 +44,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    InitUniformsFunc InitUniforms = (InitUniformsFunc)GET_FUNC(shaderLib, INIT_UNIFORM_FUNC_NAME);
-    if(!InitUniforms)
-    {
-        spdlog::error("fail to find function in dynamic lib: {}", INIT_UNIFORM_FUNC_NAME);
-        CLOSE_LIB(shaderLib);
-        return -1;
-    }
+    // InitUniformsFunc InitUniforms = (InitUniformsFunc)GET_FUNC(shaderLib, INIT_UNIFORM_FUNC_NAME);
+    // if(!InitUniforms)
+    // {
+    //     spdlog::error("fail to find function in dynamic lib: {}", INIT_UNIFORM_FUNC_NAME);
+    //     CLOSE_LIB(shaderLib);
+    //     return -1;
+    // }
 
     SetConfigFlags(FLAG_WINDOW_HIDDEN);
     InitWindow(100, 100, "Image Viewer");
@@ -64,9 +65,11 @@ int main(int argc, char *argv[])
     SetTextureFilter(texture, TEXTURE_FILTER_TRILINEAR);
     SetTargetFPS(60);
 
-    Shader shader = LoadShader(NULL, fragmentShaderPath.c_str());
+    // Shader shader = LoadShader(NULL, fragmentShaderPath.c_str());
 
-    InitUniforms(shader, CONFIG_PATH);
+    HotShader hotShader{fragmentShaderPath.c_str()};
+
+    // InitUniforms(shader, CONFIG_PATH);
 
     while (!WindowShouldClose())
     {
@@ -77,19 +80,20 @@ int main(int argc, char *argv[])
         Rectangle dest{0.0f, 0.0f, screenWidth, screenHeight};
         Vector2 orgin{0.0f, 0.0f};
 
-        UpdateUniforms(shader);
+        hotShader.update();
+        UpdateUniforms(hotShader.shader);
 
         BeginDrawing();
             ClearBackground(BLACK);
 
-            BeginShaderMode(shader);
+            BeginShaderMode(hotShader.shader);
                 DrawTexturePro(texture, source, dest, orgin, 0.0f, WHITE);
             EndShaderMode();
         EndDrawing();
     }
 
     UnloadTexture(texture);
-    UnloadShader(shader);
+    hotShader.unload();
 
     CLOSE_LIB(shaderLib);
     CloseWindow();
